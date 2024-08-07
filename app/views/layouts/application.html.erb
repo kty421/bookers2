@@ -2,31 +2,107 @@
 <html>
   <head>
     <title>Bookers2</title>
+    <script src="https://kit.fontawesome.com/31343b8759.js" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   </head>
 
   <body>
     <header>
-    <% if user_signed_in? %>
-      <li>
-        <%= link_to '投稿フォーム', books_path %>
-      </li>
-      <li>
-        <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
-      </li>
-    <% else %>
-      <li>
-        <%= link_to "新規登録", new_user_registration_path %>
-      </li>
-      <li>
-        <%= link_to "ログイン", new_user_session_path %>
-      </li>
-    <% end %>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container ">
+          <a class="navbar-brand" href="/">
+            <span>Bookers</span>
+          </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <% if user_signed_in? %>
+                  <li>
+                    <%= link_to user_path(current_user.id) do %>
+                      <div class="nav-link text-light">
+                        <i class="fa-solid fa-house"></i>
+                        <span>Home</span>
+                      </div>
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to users_path do %>
+                      <div class="nav-link text-light">
+                        <i class="fa-solid fa-users"></i>
+                        <span>Users</span>
+                      </div>
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to books_path do %>
+                      <div class="nav-link text-light">
+                        <i class="fa-solid fa-book-open"></i>
+                        <span>Books</span>
+                      </div>
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to  destroy_user_session_path, method: :delete do %>
+                      <div class="nav-link text-light">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span>Log out</span>
+                      </div>
+                    <% end %>
+                  </li>
+                  
+                  
+                <% else %>
+                  <li>
+                    <%= link_to root_path do %>
+                      <div class="nav-link text-light">
+                        <i class="fa-solid fa-house"></i>
+                        <span>Home</span>
+                      </div>
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to about_path do %>
+                      <div class="nav-link text-light">
+                        <i class="fa-solid fa-link"></i>
+                        <span>About</span>
+                      </div>
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to new_user_registration_path do %>
+                      <div class="nav-link text-light">
+                        <i class="fa-solid fa-user-plus"></i>
+                        <span>Sign up</span>
+                      </div>
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to new_user_session_path do %>
+                      <div class="nav-link text-light">
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                        <span>Log in</span>
+                      </div>
+                    <% end %>
+                  </li>
+                <% end %>
+                
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
   </header>
     <%= yield %>
   </body>

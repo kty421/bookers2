@@ -1,15 +1,55 @@
-<div>
-  <%= link_to book_path(@book.id) do %>
-      <p>説明：<%= @book.title %></p>
-    <% end %>
-  <p>説明：<%= @book.body %></p>
-   <p>投稿ユーザー画像：<%= image_tag @book.user.get_profile_image(100,100) %></p>
-  <%= link_to user_path(@book.user_id) do %>
-    <p>ユーザーネーム：<%= @book.user.name %></p>
-  <% end %>
-  <p>投稿日：<%= @book.created_at.strftime('%Y/%m/%d') %></p>
-   <% if @book.user == current_user %>
-    <%= link_to "削除", book_path(@book), method: :delete %>
-  <% end %>
-</div>
-   
+<div class="container px-5 px-sm-0">
+  <div class="row">
+    <div class="col-md-3">
+      <%= render 'books/list', user: @user %>
+      <%= render 'books/new', book: @book_new %>
+    </div>
+     <div class="offset-md-1 col-md-8">
+       <h2>Book detail</h2>
+       <table class="table">
+         <tbody>
+           <% if @user == current_user %>
+              <tr>
+                <td>
+                  <%= image_tag @book.user.get_profile_image(100,100) %><br>
+                  <%= link_to user_path(@book.user.id) do %>
+                   <%= @book.user.name %>
+                  <% end %>
+                </td>
+                <td>
+                  <%= link_to book_path(@book.id) do %>
+                   <%= @book.title %>
+                  <% end %>
+                </td>
+                <td><%= @book.body %></td>
+                <td>
+                  <%= link_to edit_book_path(@book) do %>
+                   <div class="btn btn-sm btn-success">Edit</div>
+                  <% end %>
+                </td>
+                <td>
+                  <%= link_to book_path(@book), method: :delete, "data-confirm" => "本当に削除しますか？" do %>
+                   <div class="btn btn-sm btn-danger">Destroy</div>
+                  <% end %>
+                </td>
+              </tr>
+            <% else %>
+              <tr>
+                <td>
+                  <%= image_tag @book.user.get_profile_image(100,100) %><br>
+                  <%= link_to user_path(@book.user.id) do %>
+                   <%= @book.user.name %>
+                  <% end %>
+                </td>
+                <td>
+                  <%= link_to book_path(@book.id) do %>
+                   <%= @book.title %>
+                  <% end %>
+                </td>
+                <td><%= @book.body %></td>
+            <% end %>
+         </tbody>
+       </table>
+    </div>
+  </div>
+</div>  
