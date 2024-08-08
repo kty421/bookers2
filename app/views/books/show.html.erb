@@ -1,4 +1,5 @@
 <div class="container px-5 px-sm-0">
+    <p id="notice"></p>
   <div class="row">
     <div class="col-md-3">
       <%= render 'books/list', user: @user %>
@@ -11,7 +12,9 @@
            <% if @user == current_user %>
               <tr>
                 <td>
-                  <%= image_tag @book.user.get_profile_image(100,100) %><br>
+                  <%= link_to books_path do %>
+                   <%= image_tag @book.user.get_profile_image(100,100) %>
+                  <% end %><br>
                   <%= link_to user_path(@book.user.id) do %>
                    <%= @book.user.name %>
                   <% end %>
